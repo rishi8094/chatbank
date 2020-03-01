@@ -73,7 +73,7 @@ struct PersonalSignupView: View {
                             ["title": title,
                              "firstname": self.firstname,
                              "lastname": self.lastname,
-                             "dob": ["dd": "01", "mm": 02, "yyyy": 1994],
+                             "dob": ["dd": 01, "mm": 02, "yyyy": 1994],
                              "nationality": "British",
                              "email": self.email,
                              "phone": self.phone
@@ -82,19 +82,18 @@ struct PersonalSignupView: View {
                             "type": self.account == 0 ? "current_account" : "savings_account"
                         ]
                     ]
-                    AF.request("https://25335041.eu.ngrok.io/create_customer", method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
-                        print(response.result)
-                        switch response.result {
-                        case .success(let value):
-                            if let json = JSON(rawValue: value){
-                                print(response.debugDescription)
-//                                 NotificationCenter.default.post(name: NSNotification .Name("action=accountCreated"), object: String("ffff"))
-                            }
-                            
-                        case.failure(let error):
-                            print(error.localizedDescription)
-                        }
-                    }
+                    NotificationCenter.default.post(name: NSNotification .Name("action=accountCreated"), object: String("ss"))
+//                    AF.request("https://25335041.eu.ngrok.io/create_customer", method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
+//                        print(response.result)
+//                        switch response.result {
+//                        case .success(let value):
+//                            if let json = JSON(rawValue: value){
+//                                NotificationCenter.default.post(name: NSNotification .Name("action=accountCreated"), object: String("\(json["id"].stringValue)"))
+//                            }
+//                        case.failure(let error):
+//                            print(error.localizedDescription)
+//                        }
+//                    }
                 }) {
                     Text("Create Account")
                         .font(.system(size: 20))
@@ -118,3 +117,4 @@ struct PersonalSignupView_Previews: PreviewProvider {
         PersonalSignupView ()
     }
 }
+    
